@@ -19,7 +19,7 @@ class TeacherController extends Controller
     public function index(Request $request): Response
     {
         $query = User::where('school_id', $request->user()->school_id)
-            ->where('role', 'teacher')
+            ->teachers()
             ->withCount('subjects')
             ->orderBy('name');
 
@@ -55,16 +55,16 @@ class TeacherController extends Controller
         $teacher->update([
             'name' => $data['name'],
             'email' => $data['email'],
-            ...($data['password'] ? ['password' => Hash::make($data['password'])] : []),
+            ...($data['password'] ?? null ? ['password' => Hash::make($data['password'])] : []),
         ]);
 
         return redirect()->route('director.teachers.index')
             ->with('success', 'Professor atualizado com sucesso.');
     }
 
-    public function destroy(Request $request, User $teacher): RedirectResponse
+    public function destroy(User $teacher): RedirectResponse
     {
-        abort_unless($teacher->school_id === $request->user()->school_id && $teacher->role === 'teacher', 403);
+        $this->authorize('deleteTeacher', $teacher);
 
         $subjectCount = $teacher->subjects()->count();
 

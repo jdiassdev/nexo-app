@@ -19,7 +19,7 @@ class GradeController extends Controller
     {
         $subject = $activity->subject()->with('classroom.students:id,name,enrollment')->first();
 
-        abort_unless($subject->teacher_id === $request->user()->id, 403);
+        $this->authorize('manage', $subject);
 
         $grades = $activity->grades()->pluck('score', 'student_id');
 

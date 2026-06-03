@@ -44,9 +44,9 @@ class ClassroomController extends Controller
             ->with('success', 'Turma atualizada com sucesso.');
     }
 
-    public function destroy(Request $request, Classroom $classroom): RedirectResponse
+    public function destroy(Classroom $classroom): RedirectResponse
     {
-        abort_unless($classroom->school_id === $request->user()->school_id, 403);
+        $this->authorize('delete', $classroom);
 
         $classroom->delete();
 

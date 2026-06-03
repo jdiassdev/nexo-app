@@ -10,7 +10,7 @@ class UpdateActivityRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->route('activity')->subject->teacher_id === $this->user()->id;
+        return $this->user()->can('manage', $this->route('activity')->subject);
     }
 
     public function rules(): array

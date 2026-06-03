@@ -55,7 +55,7 @@ class UserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'] ?? null,
             'school_id' => $data['school_id'],
-            ...($data['password'] ? ['password' => Hash::make($data['password'])] : []),
+            ...($data['password'] ?? null ? ['password' => Hash::make($data['password'])] : []),
         ]);
 
         return back()->with('success', 'Usuário atualizado.');

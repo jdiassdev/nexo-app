@@ -18,7 +18,7 @@ class AttendanceController extends Controller
 {
     public function index(Request $request, Subject $subject): Response
     {
-        abort_unless($subject->teacher_id === $request->user()->id, 403);
+        $this->authorize('manage', $subject);
 
         $date = $request->query('date', now()->toDateString());
 

@@ -20,7 +20,7 @@ class StudentController extends Controller
     public function index(Request $request): Response
     {
         $query = User::where('school_id', $request->user()->school_id)
-            ->where('role', 'student')
+            ->students()
             ->with('classrooms:id,name,school_year')
             ->orderBy('name');
 
@@ -67,7 +67,7 @@ class StudentController extends Controller
 
         $student->update([
             'name' => $data['name'],
-            ...($data['password'] ? ['password' => Hash::make($data['password'])] : []),
+            ...($data['password'] ?? null ? ['password' => Hash::make($data['password'])] : []),
         ]);
 
         $student->classrooms()->sync($data['classroom_id'] ? [$data['classroom_id']] : []);
@@ -76,9 +76,9 @@ class StudentController extends Controller
             ->with('success', 'Aluno atualizado com sucesso.');
     }
 
-    public function destroy(Request $request, User $student): RedirectResponse
+    public function destroy(User $student): RedirectResponse
     {
-        abort_unless($student->school_id === $request->user()->school_id && $student->role === 'student', 403);
+        $this->authorize('deleteStudent', $student);
 
         $student->delete();
 

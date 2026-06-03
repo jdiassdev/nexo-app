@@ -18,7 +18,7 @@ class ActivityController extends Controller
 {
     public function index(Request $request, Subject $subject): Response
     {
-        abort_unless($subject->teacher_id === $request->user()->id, 403);
+        $this->authorize('manage', $subject);
 
         $activities = $subject->activities()
             ->withCount('grades')
@@ -50,7 +50,7 @@ class ActivityController extends Controller
 
     public function destroy(Request $request, Activity $activity): RedirectResponse
     {
-        abort_unless($activity->subject->teacher_id === $request->user()->id, 403);
+        $this->authorize('manage', $activity->subject);
 
         $subjectId = $activity->subject_id;
         $activity->delete();
