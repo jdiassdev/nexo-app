@@ -3,21 +3,21 @@
 
         <div class="flex items-start justify-between mb-6">
             <div>
-                <h2 class="text-base font-semibold text-slate-800">Usuários</h2>
+                <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Usuários</h2>
                 <p class="text-sm text-slate-400 mt-0.5">Gerencie diretores, professores e alunos do sistema</p>
             </div>
             <Button :label="`Novo ${roleLabel}`" icon="pi pi-plus" @click="openCreate" />
         </div>
 
         <!-- Role tabs -->
-        <div class="flex gap-1 bg-slate-100 rounded-xl p-1 mb-5 w-fit">
+        <div class="flex gap-1 bg-slate-100 dark:bg-slate-800 rounded-xl p-1 mb-5 w-fit">
             <button
                 v-for="tab in tabs"
                 :key="tab.value"
                 class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all"
                 :class="activeRole === tab.value
-                    ? 'bg-white text-slate-800 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'"
+                    ? 'bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 shadow-sm'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'"
                 @click="switchRole(tab.value)"
             >
                 {{ tab.label }}
@@ -33,7 +33,7 @@
                                 <span class="text-xs font-semibold" :class="avatarText(data.role)">{{ data.name.charAt(0).toUpperCase() }}</span>
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="text-xs text-slate-400 leading-tight mt-0.5">
                                     <span v-if="data.email">{{ data.email }}</span>
                                     <span v-else-if="data.enrollment" class="font-mono">Mat. {{ data.enrollment }}</span>
@@ -45,10 +45,10 @@
                 </Column>
                 <Column header="Escola">
                     <template #body="{ data }">
-                        <span v-if="data.school" class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-medium">
+                        <span v-if="data.school" class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
                             <i class="pi pi-building text-[10px]" />{{ data.school.name }}
                         </span>
-                        <span v-else class="text-slate-300 text-xs">—</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                     </template>
                 </Column>
                 <Column header="" style="width:80px">
@@ -61,10 +61,10 @@
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-users text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhum {{ roleLabel.toLowerCase() }} encontrado</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhum {{ roleLabel.toLowerCase() }} encontrado</p>
                     </div>
                 </template>
             </DataTable>
@@ -100,7 +100,7 @@
                     <Password v-model="form.password" class="w-full" :feedback="false" toggle-mask input-class="w-full" placeholder="••••••••" />
                 </FormField>
 
-                <div v-if="activeRole === 'student'" class="flex items-center gap-2 bg-slate-50 rounded-lg px-3 py-2.5 text-xs text-slate-500">
+                <div v-if="activeRole === 'student'" class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 rounded-lg px-3 py-2.5 text-xs text-slate-500 dark:text-slate-400">
                     <i class="pi pi-info-circle text-slate-400" />
                     A matrícula será gerada automaticamente pelo sistema.
                 </div>
@@ -157,12 +157,12 @@ const roleLabelMap: Record<string, string> = { director: 'Diretor', teacher: 'Pr
 const roleLabel = computed(() => roleLabelMap[activeRole.value] ?? activeRole.value);
 
 const avatarColors: Record<string, [string, string]> = {
-    director: ['bg-indigo-50', 'text-indigo-600'],
-    teacher: ['bg-violet-50', 'text-violet-600'],
-    student: ['bg-emerald-50', 'text-emerald-600'],
+    director: ['bg-indigo-50 dark:bg-indigo-900/30', 'text-indigo-600 dark:text-indigo-400'],
+    teacher: ['bg-violet-50 dark:bg-violet-900/30', 'text-violet-600 dark:text-violet-400'],
+    student: ['bg-emerald-50 dark:bg-emerald-900/30', 'text-emerald-600 dark:text-emerald-400'],
 };
-function avatarBg(role: string) { return avatarColors[role]?.[0] ?? 'bg-slate-100'; }
-function avatarText(role: string) { return avatarColors[role]?.[1] ?? 'text-slate-500'; }
+function avatarBg(role: string) { return avatarColors[role]?.[0] ?? 'bg-slate-100 dark:bg-slate-800'; }
+function avatarText(role: string) { return avatarColors[role]?.[1] ?? 'text-slate-500 dark:text-slate-400'; }
 
 const form = useForm({ name: '', email: '', password: '', school_id: null as number | null, role: props.role });
 

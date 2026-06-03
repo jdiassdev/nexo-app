@@ -3,11 +3,11 @@
 
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <Link :href="route('director.classrooms.index')" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+                <Link :href="route('director.classrooms.index')" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     <i class="pi pi-arrow-left text-sm" />
                 </Link>
                 <div>
-                    <h2 class="text-base font-semibold text-slate-800">{{ classroom.name }}</h2>
+                    <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">{{ classroom.name }}</h2>
                     <p class="text-sm text-slate-400 mt-0.5">Disciplinas · Ano letivo {{ classroom.school_year }}</p>
                 </div>
             </div>
@@ -19,22 +19,22 @@
                 <Column header="Disciplina">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center shrink-0">
-                                <i class="pi pi-book text-purple-600 text-xs" />
+                            <div class="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center shrink-0">
+                                <i class="pi pi-book text-purple-600 dark:text-purple-400 text-xs" />
                             </div>
-                            <p class="font-medium text-slate-800">{{ data.name }}</p>
+                            <p class="font-medium text-slate-800 dark:text-slate-100">{{ data.name }}</p>
                         </div>
                     </template>
                 </Column>
                 <Column header="Professor" style="width:200px">
                     <template #body="{ data }">
-                        <span v-if="data.teacher" class="inline-flex items-center gap-1.5 text-xs text-slate-600">
-                            <div class="w-5 h-5 rounded-full bg-violet-50 flex items-center justify-center shrink-0">
-                                <span class="text-[9px] font-semibold text-violet-600">{{ data.teacher.name.charAt(0) }}</span>
+                        <span v-if="data.teacher" class="inline-flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+                            <div class="w-5 h-5 rounded-full bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center shrink-0">
+                                <span class="text-[9px] font-semibold text-violet-600 dark:text-violet-400">{{ data.teacher.name.charAt(0) }}</span>
                             </div>
                             {{ data.teacher.name }}
                         </span>
-                        <span v-else class="text-slate-300 text-xs">Sem professor</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">Sem professor</span>
                     </template>
                 </Column>
                 <Column header="Horários">
@@ -43,28 +43,28 @@
                             <span
                                 v-for="s in data.schedules"
                                 :key="s.id"
-                                class="inline-flex items-center gap-1 text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full"
+                                class="inline-flex items-center gap-1 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 px-2 py-0.5 rounded-full"
                             >
                                 <i class="pi pi-clock text-[9px]" />
                                 {{ dayLabel(s.day_of_week) }} {{ s.time_start }}–{{ s.time_end }}
                             </span>
                         </div>
-                        <span v-else class="text-slate-300 text-xs">—</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                     </template>
                 </Column>
                 <Column header="C.H." style="width:70px">
                     <template #body="{ data }">
-                        <span v-if="data.workload" class="text-xs text-slate-500">{{ data.workload }}h</span>
-                        <span v-else class="text-slate-300 text-xs">—</span>
+                        <span v-if="data.workload" class="text-xs text-slate-500 dark:text-slate-400">{{ data.workload }}h</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                     </template>
                 </Column>
                 <Column header="Máx. Faltas" style="width:110px">
                     <template #body="{ data }">
-                        <span v-if="data.max_absences" class="inline-flex items-center gap-1 text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full">
+                        <span v-if="data.max_absences" class="inline-flex items-center gap-1 text-xs bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full">
                             <i class="pi pi-exclamation-circle text-[9px]" />
                             {{ data.max_absences }}
                         </span>
-                        <span v-else class="text-slate-300 text-xs">—</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                     </template>
                 </Column>
                 <Column header="" style="width:80px">
@@ -77,10 +77,10 @@
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-book text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhuma disciplina cadastrada</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhuma disciplina cadastrada</p>
                         <p class="text-xs text-slate-400 mt-1">Clique em "Nova Disciplina" para começar.</p>
                     </div>
                 </template>
@@ -116,16 +116,16 @@
                 <!-- Schedules -->
                 <div>
                     <div class="flex items-center justify-between mb-2">
-                        <p class="text-sm font-medium text-slate-700">Horários semanais</p>
+                        <p class="text-sm font-medium text-slate-700 dark:text-slate-200">Horários semanais</p>
                         <Button type="button" label="Adicionar" icon="pi pi-plus" size="small" severity="secondary" outlined @click="addSchedule" />
                     </div>
-                    <div v-if="form.schedules.length === 0" class="rounded-xl border border-dashed border-slate-200 py-5 text-center text-xs text-slate-400">
+                    <div v-if="form.schedules.length === 0" class="rounded-xl border border-dashed border-slate-200 dark:border-slate-700 py-5 text-center text-xs text-slate-400">
                         Nenhum horário adicionado.
                     </div>
                     <div v-for="(s, i) in form.schedules" :key="i" class="flex items-center gap-2 mb-2">
                         <Select v-model="s.day_of_week" :options="days" option-label="label" option-value="value" placeholder="Dia" class="flex-1" />
                         <InputText v-model="s.time_start" placeholder="08:00" class="w-24" maxlength="5" />
-                        <span class="text-slate-300 text-sm">→</span>
+                        <span class="text-slate-300 dark:text-slate-600 text-sm">→</span>
                         <InputText v-model="s.time_end" placeholder="09:30" class="w-24" maxlength="5" />
                         <Button type="button" icon="pi pi-trash" size="small" severity="danger" text rounded @click="removeSchedule(i)" />
                     </div>

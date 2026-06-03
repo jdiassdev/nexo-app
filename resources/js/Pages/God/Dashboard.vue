@@ -2,7 +2,7 @@
     <AppLayout title="Dashboard" :nav-items="navItems">
 
         <div class="mb-6">
-            <h2 class="text-base font-semibold text-slate-800">Visão Geral do Sistema</h2>
+            <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Visão Geral do Sistema</h2>
             <p class="text-sm text-slate-400 mt-0.5">Panorama completo de todas as escolas e usuários</p>
         </div>
 
@@ -14,23 +14,23 @@
                     </div>
                     <p class="text-xs text-slate-400 font-medium">{{ card.label }}</p>
                 </div>
-                <p class="text-3xl font-bold text-slate-800 tracking-tight">{{ card.value }}</p>
+                <p class="text-3xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">{{ card.value }}</p>
             </div>
         </div>
 
         <div class="page-card">
-            <div class="px-5 py-4 border-b border-slate-100">
-                <h3 class="text-sm font-semibold text-slate-800">Escolas cadastradas</h3>
+            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="text-sm font-semibold text-slate-800 dark:text-slate-100">Escolas cadastradas</h3>
             </div>
             <DataTable :value="schools" class="text-sm">
                 <Column header="Escola" field="name">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
-                                <i class="pi pi-building text-slate-500 text-sm" />
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                                <i class="pi pi-building text-slate-500 dark:text-slate-400 text-sm" />
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="text-xs text-slate-400 leading-tight mt-0.5">{{ data.city ?? 'Cidade não informada' }}</p>
                             </div>
                         </div>
@@ -74,18 +74,18 @@ const props = defineProps<{
 const navItems = godNav;
 
 const statCards = computed(() => [
-    { label: 'Escolas', value: props.stats.schools, icon: 'pi pi-building', color: 'text-slate-600', bg: 'bg-slate-100' },
-    { label: 'Turmas', value: props.stats.classrooms, icon: 'pi pi-objects-column', color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Diretores', value: props.stats.directors, icon: 'pi pi-shield', color: 'text-indigo-600', bg: 'bg-indigo-50' },
-    { label: 'Professores', value: props.stats.teachers, icon: 'pi pi-user', color: 'text-violet-600', bg: 'bg-violet-50' },
-    { label: 'Alunos', value: props.stats.students, icon: 'pi pi-users', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Escolas', value: props.stats.schools, icon: 'pi pi-building', color: 'text-slate-600', bg: 'bg-slate-100 dark:bg-slate-800' },
+    { label: 'Turmas', value: props.stats.classrooms, icon: 'pi pi-objects-column', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/30' },
+    { label: 'Diretores', value: props.stats.directors, icon: 'pi pi-shield', color: 'text-indigo-600 dark:text-indigo-400', bg: 'bg-indigo-50 dark:bg-indigo-900/30' },
+    { label: 'Professores', value: props.stats.teachers, icon: 'pi pi-user', color: 'text-violet-600', bg: 'bg-violet-50 dark:bg-violet-900/30' },
+    { label: 'Alunos', value: props.stats.students, icon: 'pi pi-users', color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/30' },
 ]);
 
 const colorMap: Record<string, string> = {
-    blue: 'bg-blue-50 text-blue-700',
-    violet: 'bg-violet-50 text-violet-700',
-    indigo: 'bg-indigo-50 text-indigo-700',
-    emerald: 'bg-emerald-50 text-emerald-700',
+    blue: 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+    violet: 'bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300',
+    indigo: 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400',
+    emerald: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300',
 };
 
 const CountBadge = defineComponent({
@@ -104,7 +104,7 @@ const EmptyState = defineComponent({
     props: { icon: String, message: String },
     setup(p) {
         return () => h('div', { class: 'flex flex-col items-center justify-center py-10 text-center' }, [
-            h('div', { class: 'w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center mb-2' }, [
+            h('div', { class: 'w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-2' }, [
                 h('i', { class: `${p.icon} text-slate-400` }),
             ]),
             h('p', { class: 'text-sm text-slate-400' }, p.message),

@@ -3,7 +3,7 @@
 
         <div class="flex items-start justify-between mb-6">
             <div>
-                <h2 class="text-base font-semibold text-slate-800">Gerenciar Alunos</h2>
+                <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Gerenciar Alunos</h2>
                 <p class="text-sm text-slate-400 mt-0.5">Cadastro e matrícula de alunos da escola</p>
             </div>
             <Button label="Novo Aluno" icon="pi pi-plus" @click="openCreate" />
@@ -12,7 +12,7 @@
         <div class="page-card">
 
             <!-- Filter toolbar -->
-            <div class="px-5 py-4 border-b border-slate-100">
+            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="flex items-center gap-2.5">
                     <div class="relative flex-1 max-w-xs">
                         <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none" />
@@ -35,7 +35,7 @@
                     <Button label="Buscar" icon="pi pi-search" size="small" @click="applyFilters" />
                     <button
                         v-if="hasFilters"
-                        class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors ml-1"
+                        class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors ml-1"
                         @click="clearFilters"
                     >
                         <i class="pi pi-times-circle" /> Limpar
@@ -51,27 +51,27 @@
                 <Column header="Aluno" field="name">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center shrink-0">
-                                <span class="text-xs font-semibold text-indigo-600">{{ data.name.charAt(0).toUpperCase() }}</span>
+                            <div class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
+                                <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">{{ data.name.charAt(0).toUpperCase() }}</span>
                             </div>
-                            <span class="font-medium text-slate-800">{{ data.name }}</span>
+                            <span class="font-medium text-slate-800 dark:text-slate-100">{{ data.name }}</span>
                         </div>
                     </template>
                 </Column>
                 <Column header="Matrícula" style="width:140px">
                     <template #body="{ data }">
-                        <span class="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md tracking-wide">
+                        <span class="font-mono text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded-md tracking-wide">
                             {{ data.enrollment }}
                         </span>
                     </template>
                 </Column>
                 <Column header="Turma" style="width:200px">
                     <template #body="{ data }">
-                        <span v-if="data.classrooms?.[0]" class="inline-flex items-center gap-1.5 text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-medium">
+                        <span v-if="data.classrooms?.[0]" class="inline-flex items-center gap-1.5 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 px-2.5 py-1 rounded-full font-medium">
                             <i class="pi pi-objects-column text-[10px]" />
                             {{ data.classrooms[0].name }} · {{ data.classrooms[0].school_year }}
                         </span>
-                        <span v-else class="text-slate-300 text-xs">Sem turma</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">Sem turma</span>
                     </template>
                 </Column>
                 <Column header="" style="width:80px">
@@ -84,17 +84,16 @@
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-users text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhum aluno encontrado</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhum aluno encontrado</p>
                         <p class="text-xs text-slate-400 mt-1">{{ hasFilters ? 'Tente ajustar os filtros de busca.' : 'Clique em "Novo Aluno" para começar.' }}</p>
                     </div>
                 </template>
             </DataTable>
         </div>
 
-        <!-- Create / Edit dialog -->
         <AppDialog
             v-model="dialogVisible"
             :title="editingId ? 'Editar Aluno' : 'Novo Aluno'"
@@ -125,7 +124,7 @@
                 >
                     <Password v-model="form.password" class="w-full" :feedback="false" toggle-mask input-class="w-full" placeholder="••••••••" />
                 </FormField>
-                <div v-if="editingId" class="flex items-center gap-2 bg-slate-50 rounded-lg px-3 py-2.5 text-xs text-slate-500">
+                <div v-if="editingId" class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 rounded-lg px-3 py-2.5 text-xs text-slate-500 dark:text-slate-400">
                     <i class="pi pi-info-circle text-slate-400" />
                     A matrícula é gerada automaticamente e não pode ser alterada.
                 </div>

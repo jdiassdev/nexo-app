@@ -2,14 +2,14 @@
     <AppLayout title="Alunos" :nav-items="navItems">
 
         <div class="mb-6">
-            <h2 class="text-base font-semibold text-slate-800">Meus Alunos</h2>
+            <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Meus Alunos</h2>
             <p class="text-sm text-slate-400 mt-0.5">Alunos das turmas em que você leciona</p>
         </div>
 
         <div class="page-card">
 
             <!-- Filter toolbar -->
-            <div class="px-5 py-4 border-b border-slate-100">
+            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="flex items-center gap-2.5">
                     <div class="relative flex-1 max-w-xs">
                         <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none" />
@@ -32,7 +32,7 @@
                     <Button label="Buscar" icon="pi pi-search" size="small" @click="applyFilters" />
                     <button
                         v-if="hasFilters"
-                        class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors ml-1"
+                        class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors ml-1"
                         @click="clearFilters"
                     >
                         <i class="pi pi-times-circle" /> Limpar
@@ -48,35 +48,35 @@
                 <Column header="Aluno" field="name">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center shrink-0">
-                                <span class="text-xs font-semibold text-indigo-600">{{ data.name.charAt(0).toUpperCase() }}</span>
+                            <div class="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
+                                <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">{{ data.name.charAt(0).toUpperCase() }}</span>
                             </div>
-                            <span class="font-medium text-slate-800">{{ data.name }}</span>
+                            <span class="font-medium text-slate-800 dark:text-slate-100">{{ data.name }}</span>
                         </div>
                     </template>
                 </Column>
                 <Column header="Matrícula" style="width:140px">
                     <template #body="{ data }">
-                        <span class="font-mono text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md tracking-wide">
+                        <span class="font-mono text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-1 rounded-md tracking-wide">
                             {{ data.enrollment }}
                         </span>
                     </template>
                 </Column>
                 <Column header="Turma" style="width:200px">
                     <template #body="{ data }">
-                        <span v-if="data.classrooms?.[0]" class="inline-flex items-center gap-1.5 text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-medium">
+                        <span v-if="data.classrooms?.[0]" class="inline-flex items-center gap-1.5 text-xs bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 px-2.5 py-1 rounded-full font-medium">
                             <i class="pi pi-objects-column text-[10px]" />
                             {{ data.classrooms[0].name }} · {{ data.classrooms[0].school_year }}
                         </span>
-                        <span v-else class="text-slate-300 text-xs">—</span>
+                        <span v-else class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                     </template>
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-users text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhum aluno encontrado</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhum aluno encontrado</p>
                         <p class="text-xs text-slate-400 mt-1">{{ hasFilters ? 'Tente ajustar os filtros de busca.' : 'Nenhum aluno está matriculado nas suas turmas.' }}</p>
                     </div>
                 </template>

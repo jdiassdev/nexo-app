@@ -3,7 +3,7 @@
 
         <div class="flex items-start justify-between mb-6">
             <div>
-                <h2 class="text-base font-semibold text-slate-800">Turmas</h2>
+                <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Turmas</h2>
                 <p class="text-sm text-slate-400 mt-0.5">Gerencie as turmas e acesse suas disciplinas</p>
             </div>
             <Button label="Nova Turma" icon="pi pi-plus" @click="openCreate" />
@@ -14,11 +14,11 @@
                 <Column header="Turma">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
-                                <i class="pi pi-objects-column text-blue-600 text-sm" />
+                            <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center shrink-0">
+                                <i class="pi pi-objects-column text-blue-600 dark:text-blue-400 text-sm" />
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="text-xs text-slate-400 leading-tight mt-0.5">Ano letivo {{ data.school_year }}</p>
                             </div>
                         </div>
@@ -26,14 +26,14 @@
                 </Column>
                 <Column header="Alunos" style="width:110px">
                     <template #body="{ data }">
-                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-50 text-emerald-700">
+                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
                             <i class="pi pi-users text-[10px]" />{{ data.students_count }}
                         </span>
                     </template>
                 </Column>
                 <Column header="Disciplinas" style="width:120px">
                     <template #body="{ data }">
-                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-purple-50 text-purple-700">
+                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">
                             <i class="pi pi-book text-[10px]" />{{ data.subjects_count }}
                         </span>
                     </template>
@@ -51,10 +51,10 @@
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-objects-column text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhuma turma cadastrada</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhuma turma cadastrada</p>
                         <p class="text-xs text-slate-400 mt-1">Clique em "Nova Turma" para começar.</p>
                     </div>
                 </template>

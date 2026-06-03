@@ -4,11 +4,11 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <Link :href="route('teacher.subjects.activities.index', subject.id)" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+                <Link :href="route('teacher.subjects.activities.index', subject.id)" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     <i class="pi pi-arrow-left text-sm" />
                 </Link>
                 <div>
-                    <h2 class="text-base font-semibold text-slate-800">{{ activity.title }}</h2>
+                    <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">{{ activity.title }}</h2>
                     <p class="text-sm text-slate-400 mt-0.5">
                         {{ subject.name }} · {{ activity.quarter }}º Bimestre
                         <span class="ml-2 text-xs text-slate-400">Nota máxima: {{ activity.max_grade }}</span>
@@ -30,7 +30,7 @@
         <div class="page-card">
 
             <!-- Toolbar -->
-            <div class="px-5 py-3.5 border-b border-slate-100 flex items-center gap-3">
+            <div class="px-5 py-3.5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
                 <div class="relative flex-1 max-w-xs">
                     <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none" />
                     <InputText
@@ -41,7 +41,7 @@
                 </div>
                 <button
                     v-if="search"
-                    class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+                    class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                     @click="search = ''"
                 >
                     <i class="pi pi-times-circle" /> Limpar
@@ -55,11 +55,11 @@
                 <Column header="Aluno">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                                <span class="text-xs font-semibold text-slate-500">{{ data.name.charAt(0).toUpperCase() }}</span>
+                            <div class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">{{ data.name.charAt(0).toUpperCase() }}</span>
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="font-mono text-[11px] text-slate-400 leading-tight mt-0.5">{{ data.enrollment }}</p>
                             </div>
                         </div>

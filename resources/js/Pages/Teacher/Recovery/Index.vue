@@ -4,11 +4,11 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <Link :href="route('teacher.dashboard')" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+                <Link :href="route('teacher.dashboard')" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     <i class="pi pi-arrow-left text-sm" />
                 </Link>
                 <div>
-                    <h2 class="text-base font-semibold text-slate-800">{{ subject.name }}</h2>
+                    <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">{{ subject.name }}</h2>
                     <p class="text-sm text-slate-400 mt-0.5">Recuperações · {{ subject.classroom.name }} · {{ subject.classroom.school_year }}</p>
                 </div>
             </div>
@@ -16,13 +16,13 @@
         </div>
 
         <!-- Legend -->
-        <div class="flex flex-wrap gap-4 bg-indigo-50 border border-indigo-100 rounded-xl px-5 py-3.5 mb-5 text-xs text-indigo-700">
+        <div class="flex flex-wrap gap-4 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-xl px-5 py-3.5 mb-5 text-xs text-indigo-700 dark:text-indigo-300">
             <span class="flex items-center gap-1.5"><i class="pi pi-info-circle text-indigo-400" /> <strong>Rec. 1</strong> — após bimestres 1 e 2</span>
-            <span class="text-indigo-200">·</span>
+            <span class="text-indigo-200 dark:text-indigo-700">·</span>
             <span><strong>Rec. 2</strong> — após bimestres 3 e 4</span>
-            <span class="text-indigo-200">·</span>
+            <span class="text-indigo-200 dark:text-indigo-700">·</span>
             <span><strong>Prova Final</strong> — alunos ainda reprovados após recuperações</span>
-            <span class="text-indigo-200">·</span>
+            <span class="text-indigo-200 dark:text-indigo-700">·</span>
             <span>Nota máxima: <strong>10.0</strong></span>
         </div>
 
@@ -30,19 +30,19 @@
         <div class="page-card overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-slate-100">
+                    <tr class="border-b border-slate-100 dark:border-slate-800">
                         <th class="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-28">Matrícula</th>
                         <th class="text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Aluno</th>
                         <th class="text-center px-3 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-24">Sem. 1</th>
                         <th class="text-center px-3 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-28">
-                            <span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full">Rec. 1</span>
+                            <span class="inline-flex items-center gap-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full">Rec. 1</span>
                         </th>
                         <th class="text-center px-3 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-24">Sem. 2</th>
                         <th class="text-center px-3 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-28">
-                            <span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full">Rec. 2</span>
+                            <span class="inline-flex items-center gap-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full">Rec. 2</span>
                         </th>
                         <th class="text-center px-3 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-28">
-                            <span class="inline-flex items-center gap-1 bg-orange-50 text-orange-700 px-2 py-0.5 rounded-full">Prova Final</span>
+                            <span class="inline-flex items-center gap-1 bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded-full">Prova Final</span>
                         </th>
                         <th class="text-center px-3 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide w-24">Final</th>
                     </tr>
@@ -51,18 +51,18 @@
                     <tr
                         v-for="(row, i) in rows"
                         :key="row.student_id"
-                        class="border-b border-slate-50 last:border-0 transition-colors"
-                        :class="row.passing === false ? 'bg-red-50/30' : 'hover:bg-slate-50/50'"
+                        class="border-b border-slate-50 dark:border-slate-800/50 last:border-0 transition-colors"
+                        :class="row.passing === false ? 'bg-red-50/30 dark:bg-red-900/10' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/30'"
                     >
                         <td class="px-4 py-3">
-                            <span class="font-mono text-xs bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">{{ row.enrollment }}</span>
+                            <span class="font-mono text-xs bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded">{{ row.enrollment }}</span>
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center gap-2">
-                                <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                                    <span class="text-[9px] font-semibold text-slate-500">{{ row.name.charAt(0) }}</span>
+                                <div class="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                                    <span class="text-[9px] font-semibold text-slate-500 dark:text-slate-400">{{ row.name.charAt(0) }}</span>
                                 </div>
-                                <span class="font-medium text-slate-700">{{ row.name }}</span>
+                                <span class="font-medium text-slate-700 dark:text-slate-200">{{ row.name }}</span>
                             </div>
                         </td>
                         <td class="px-3 py-3 text-center">
@@ -72,7 +72,7 @@
                             <input
                                 v-model.number="exams[i].recovery_1"
                                 type="number" step="0.1" min="0" max="10" placeholder="—"
-                                class="w-20 text-center px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-300 transition-colors"
+                                class="w-20 text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-300 transition-colors"
                             />
                         </td>
                         <td class="px-3 py-3 text-center">
@@ -82,22 +82,22 @@
                             <input
                                 v-model.number="exams[i].recovery_2"
                                 type="number" step="0.1" min="0" max="10" placeholder="—"
-                                class="w-20 text-center px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-300 transition-colors"
+                                class="w-20 text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-300 transition-colors"
                             />
                         </td>
                         <td class="px-3 py-2.5 text-center">
                             <input
                                 v-model.number="exams[i].final_exam"
                                 type="number" step="0.1" min="0" max="10" placeholder="—"
-                                class="w-20 text-center px-2 py-1.5 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-300 transition-colors"
+                                class="w-20 text-center px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-300 transition-colors"
                             />
                         </td>
                         <td class="px-3 py-3 text-center">
                             <span
                                 class="inline-flex items-center justify-center w-14 h-7 rounded-lg text-xs font-semibold"
                                 :class="row.final_avg === null
-                                    ? 'text-slate-400 bg-slate-50'
-                                    : row.passing ? 'text-emerald-700 bg-emerald-50' : 'text-red-700 bg-red-50'"
+                                    ? 'text-slate-400 bg-slate-50 dark:bg-slate-800'
+                                    : row.passing ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30' : 'text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/30'"
                             >
                                 {{ row.final_avg ?? '—' }}
                             </span>
@@ -140,7 +140,7 @@ const exams = ref(props.rows.map(r => ({
 })));
 
 function avgClass(val: number | null): string {
-    if (val === null) return 'text-slate-300';
+    if (val === null) return 'text-slate-300 dark:text-slate-600';
     return val >= props.passing_grade ? 'text-emerald-600 font-semibold' : 'text-red-500 font-semibold';
 }
 

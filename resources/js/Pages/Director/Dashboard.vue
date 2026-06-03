@@ -2,7 +2,7 @@
     <AppLayout title="Dashboard" :nav-items="navItems">
 
         <div class="mb-6">
-            <h2 class="text-base font-semibold text-slate-800">Visão Geral da Escola</h2>
+            <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Visão Geral da Escola</h2>
             <p class="text-sm text-slate-400 mt-0.5">Resumo de turmas, disciplinas, professores e alunos</p>
         </div>
 
@@ -14,7 +14,7 @@
                     </div>
                     <p class="text-xs text-slate-400 font-medium">{{ card.label }}</p>
                 </div>
-                <p class="text-3xl font-bold text-slate-800 tracking-tight">{{ card.value }}</p>
+                <p class="text-3xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">{{ card.value }}</p>
             </div>
         </div>
     </AppLayout>
@@ -32,9 +32,9 @@ const props = defineProps<{
 const navItems = directorNav;
 
 const statCards = computed(() => [
-    { label: 'Turmas', value: props.stats.classrooms, icon: 'pi pi-objects-column', color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Disciplinas', value: props.stats.subjects, icon: 'pi pi-book', color: 'text-purple-600', bg: 'bg-purple-50' },
-    { label: 'Professores', value: props.stats.teachers, icon: 'pi pi-user', color: 'text-violet-600', bg: 'bg-violet-50' },
-    { label: 'Alunos', value: props.stats.students, icon: 'pi pi-users', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Turmas', value: props.stats.classrooms, icon: 'pi pi-objects-column', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/30' },
+    { label: 'Disciplinas', value: props.stats.subjects, icon: 'pi pi-book', color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/30' },
+    { label: 'Professores', value: props.stats.teachers, icon: 'pi pi-user', color: 'text-violet-600', bg: 'bg-violet-50 dark:bg-violet-900/30' },
+    { label: 'Alunos', value: props.stats.students, icon: 'pi pi-users', color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/30' },
 ]);
 </script>

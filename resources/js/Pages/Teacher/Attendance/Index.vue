@@ -4,11 +4,11 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-                <Link :href="route('teacher.dashboard')" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+                <Link :href="route('teacher.dashboard')" class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                     <i class="pi pi-arrow-left text-sm" />
                 </Link>
                 <div>
-                    <h2 class="text-base font-semibold text-slate-800">{{ subject.name }}</h2>
+                    <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">{{ subject.name }}</h2>
                     <p class="text-sm text-slate-400 mt-0.5">
                         {{ subject.classroom.name }} · {{ subject.classroom.school_year }}
                         <span v-if="subject.max_absences" class="ml-2 text-xs text-slate-400">
@@ -29,16 +29,16 @@
         <!-- Stats bar -->
         <div class="grid grid-cols-3 gap-4 mb-6">
             <div class="stat-card flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
-                    <i class="pi pi-users text-slate-500" />
+                <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                    <i class="pi pi-users text-slate-500 dark:text-slate-400" />
                 </div>
                 <div>
                     <p class="text-xs text-slate-400 leading-tight">Total</p>
-                    <p class="text-lg font-semibold text-slate-800 leading-tight">{{ rows.length }}</p>
+                    <p class="text-lg font-semibold text-slate-800 dark:text-slate-100 leading-tight">{{ rows.length }}</p>
                 </div>
             </div>
             <div class="stat-card flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center shrink-0">
                     <i class="pi pi-check-circle text-emerald-500" />
                 </div>
                 <div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="stat-card flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center shrink-0">
                     <i class="pi pi-times-circle text-red-400" />
                 </div>
                 <div>
@@ -61,7 +61,7 @@
         <div class="page-card">
 
             <!-- Toolbar -->
-            <div class="px-5 py-3.5 border-b border-slate-100 flex items-center gap-3">
+            <div class="px-5 py-3.5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
                 <div class="relative flex-1 max-w-xs">
                     <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none" />
                     <InputText
@@ -72,7 +72,7 @@
                 </div>
                 <button
                     v-if="search"
-                    class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+                    class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                     @click="search = ''"
                 >
                     <i class="pi pi-times-circle" /> Limpar
@@ -87,11 +87,11 @@
                 <Column header="Aluno">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
-                                <span class="text-xs font-semibold text-slate-500">{{ data.name.charAt(0).toUpperCase() }}</span>
+                            <div class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">{{ data.name.charAt(0).toUpperCase() }}</span>
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="font-mono text-[11px] text-slate-400 leading-tight mt-0.5">{{ data.enrollment }}</p>
                             </div>
                         </div>
@@ -102,12 +102,12 @@
                         <div class="flex items-center gap-2">
                             <span :class="[
                                 'text-sm font-semibold',
-                                isOverLimit(data.student_id) ? 'text-red-600' : 'text-slate-700'
+                                isOverLimit(data.student_id) ? 'text-red-600' : 'text-slate-700 dark:text-slate-200'
                             ]">
                                 {{ summary[data.student_id] ?? 0 }}
                             </span>
-                            <span v-if="subject.max_absences" class="text-xs text-slate-300">/ {{ subject.max_absences }}</span>
-                            <span v-if="isOverLimit(data.student_id)" class="text-[10px] bg-red-50 text-red-600 border border-red-200 px-1.5 py-0.5 rounded-full font-medium">
+                            <span v-if="subject.max_absences" class="text-xs text-slate-300 dark:text-slate-600">/ {{ subject.max_absences }}</span>
+                            <span v-if="isOverLimit(data.student_id)" class="text-[10px] bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900 px-1.5 py-0.5 rounded-full font-medium">
                                 Excedeu
                             </span>
                         </div>
@@ -117,13 +117,13 @@
                     <template #body="{ data }">
                         <div v-if="attendance[data._idx] === null" class="flex gap-2">
                             <button
-                                class="text-xs px-3 py-1.5 rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors font-medium"
+                                class="text-xs px-3 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors font-medium"
                                 @click="attendance[data._idx] = true"
                             >
                                 Presente
                             </button>
                             <button
-                                class="text-xs px-3 py-1.5 rounded-lg border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors font-medium"
+                                class="text-xs px-3 py-1.5 rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors font-medium"
                                 @click="attendance[data._idx] = false"
                             >
                                 Falta

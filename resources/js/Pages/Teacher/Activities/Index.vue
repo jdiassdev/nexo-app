@@ -1,7 +1,7 @@
 <template>
     <AppLayout :title="`Atividades — ${subject.name}`" :nav-items="navItems">
         <div class="flex items-center justify-between mb-4">
-            <Link :href="route('teacher.dashboard')" class="text-sm text-slate-500 hover:text-slate-700 flex items-center gap-1.5">
+            <Link :href="route('teacher.dashboard')" class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-1.5">
                 <i class="pi pi-arrow-left text-xs" /> Dashboard
             </Link>
             <Button label="Nova Atividade" icon="pi pi-plus" @click="openCreate" />
@@ -15,7 +15,7 @@
                         <template #body="{ data }">
                             <span
                                 class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium"
-                                :class="data.type === 'exam' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-600'"
+                                :class="data.type === 'exam' ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'"
                             >
                                 <i :class="data.type === 'exam' ? 'pi pi-file-edit' : 'pi pi-paperclip'" class="text-[10px]" />
                                 {{ data.type === 'exam' ? 'Prova' : 'Atividade' }}
@@ -25,10 +25,10 @@
                     <Column field="title" header="Título" />
                     <Column header="Data" style="width:130px">
                         <template #body="{ data }">
-                            <span v-if="data.due_date" class="text-slate-500">
-                                {{ data.type === 'exam' ? '' : '' }}{{ formatDate(data.due_date) }}
+                            <span v-if="data.due_date" class="text-slate-500 dark:text-slate-400">
+                                {{ formatDate(data.due_date) }}
                             </span>
-                            <span v-else class="text-slate-300">—</span>
+                            <span v-else class="text-slate-300 dark:text-slate-600">—</span>
                         </template>
                     </Column>
                     <Column field="max_grade" header="Nota Máx." style="width:100px" />
@@ -67,8 +67,8 @@
                         type="button"
                         class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border text-sm font-medium transition-colors"
                         :class="form.type === t.value
-                            ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                            : 'border-slate-200 text-slate-500 hover:border-slate-300'"
+                            ? 'border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400'
+                            : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600'"
                         @click="form.type = t.value as 'activity' | 'exam'"
                     >
                         <i :class="t.icon" />
@@ -216,5 +216,4 @@ function confirmDelete(a: Activity) {
         accept: () => form.delete(route('teacher.activities.destroy', a.id)),
     });
 }
-
 </script>

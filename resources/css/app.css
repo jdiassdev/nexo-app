@@ -4,18 +4,18 @@
 
 @layer base {
     body {
-        @apply text-slate-800 antialiased;
+        @apply text-slate-800 dark:text-slate-100 antialiased;
         font-family: 'Inter', system-ui, sans-serif;
     }
 }
 
 @layer components {
     .page-card {
-        @apply bg-white rounded-xl border border-slate-200;
+        @apply bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden;
     }
 
     .page-card-header {
-        @apply px-5 py-4 border-b border-slate-100 flex items-center justify-between;
+        @apply px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between;
     }
 
     .section-title {
@@ -23,6 +23,6 @@
     }
 
     .stat-card {
-        @apply bg-white rounded-xl border border-slate-200 p-5;
+        @apply bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 p-5;
     }
 }

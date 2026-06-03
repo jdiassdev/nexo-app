@@ -3,7 +3,7 @@
 
         <div class="flex items-start justify-between mb-6">
             <div>
-                <h2 class="text-base font-semibold text-slate-800">Escolas</h2>
+                <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Escolas</h2>
                 <p class="text-sm text-slate-400 mt-0.5">Gerencie todas as escolas do sistema</p>
             </div>
             <Button label="Nova Escola" icon="pi pi-plus" @click="openCreate" />
@@ -14,11 +14,11 @@
                 <Column header="Escola">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
-                                <i class="pi pi-building text-slate-500 text-sm" />
+                            <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0">
+                                <i class="pi pi-building text-slate-500 dark:text-slate-400 text-sm" />
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="text-xs text-slate-400 leading-tight mt-0.5">{{ data.city ?? 'Cidade não informada' }}</p>
                             </div>
                         </div>
@@ -26,28 +26,28 @@
                 </Column>
                 <Column header="Turmas" style="width:100px">
                     <template #body="{ data }">
-                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-blue-50 text-blue-700">
+                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
                             <i class="pi pi-objects-column text-[10px]" />{{ data.classrooms_count }}
                         </span>
                     </template>
                 </Column>
                 <Column header="Diretores" style="width:100px">
                     <template #body="{ data }">
-                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-indigo-50 text-indigo-700">
+                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400">
                             <i class="pi pi-shield text-[10px]" />{{ data.directors_count }}
                         </span>
                     </template>
                 </Column>
                 <Column header="Professores" style="width:110px">
                     <template #body="{ data }">
-                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-violet-50 text-violet-700">
+                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300">
                             <i class="pi pi-user text-[10px]" />{{ data.teachers_count }}
                         </span>
                     </template>
                 </Column>
                 <Column header="Alunos" style="width:90px">
                     <template #body="{ data }">
-                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-50 text-emerald-700">
+                        <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300">
                             <i class="pi pi-users text-[10px]" />{{ data.students_count }}
                         </span>
                     </template>
@@ -62,10 +62,10 @@
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-building text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhuma escola cadastrada</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhuma escola cadastrada</p>
                         <p class="text-xs text-slate-400 mt-1">Clique em "Nova Escola" para começar.</p>
                     </div>
                 </template>

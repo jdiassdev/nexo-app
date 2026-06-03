@@ -1,8 +1,8 @@
 <template>
-    <div class="flex h-screen bg-slate-50 overflow-hidden">
+    <div class="flex h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden">
         <!-- Sidebar -->
-        <aside class="w-60 flex flex-col bg-white border-r border-slate-200 shrink-0">
-            <div class="h-14 flex items-center px-5 border-b border-slate-100">
+        <aside class="w-60 flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 shrink-0">
+            <div class="h-14 flex items-center px-5 border-b border-slate-100 dark:border-slate-800">
                 <span class="text-lg font-bold tracking-tight text-indigo-600">Nexo</span>
                 <span class="ml-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-[0.2em]">Escolar</span>
             </div>
@@ -12,21 +12,21 @@
                     v-for="item in navItems"
                     :key="item.route"
                     :href="route(item.route)"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors mb-0.5"
-                    :class="isActive(item.route) ? 'bg-indigo-50 text-indigo-700 font-medium' : ''"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100 transition-colors mb-0.5"
+                    :class="isActive(item.route) ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 font-medium' : ''"
                 >
-                    <i :class="[item.icon, 'text-base', isActive(item.route) ? 'text-indigo-600' : 'text-slate-400']" />
+                    <i :class="[item.icon, 'text-base', isActive(item.route) ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400']" />
                     {{ item.label }}
                 </Link>
             </nav>
 
-            <div class="border-t border-slate-100 p-3">
+            <div class="border-t border-slate-100 dark:border-slate-800 p-3">
                 <div class="flex items-center gap-2.5 px-2 py-1.5 mb-1">
-                    <div class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center shrink-0">
-                        <span class="text-xs font-semibold text-indigo-700">{{ user.name.charAt(0).toUpperCase() }}</span>
+                    <div class="w-7 h-7 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0">
+                        <span class="text-xs font-semibold text-indigo-700 dark:text-indigo-400">{{ user.name.charAt(0).toUpperCase() }}</span>
                     </div>
                     <div class="min-w-0">
-                        <p class="text-sm font-medium text-slate-800 truncate leading-tight">{{ user.name }}</p>
+                        <p class="text-sm font-medium text-slate-800 dark:text-slate-100 truncate leading-tight">{{ user.name }}</p>
                         <p class="text-xs text-slate-400 leading-tight">{{ roleLabel }}</p>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    class="w-full flex items-center gap-2 px-3 py-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
                 >
                     <i class="pi pi-sign-out text-sm" />
                     Sair
@@ -44,8 +44,14 @@
 
         <!-- Main -->
         <div class="flex-1 flex flex-col min-w-0">
-            <header class="h-14 bg-white border-b border-slate-200 flex items-center px-6 shrink-0">
-                <h1 class="text-sm font-semibold text-slate-800">{{ title }}</h1>
+            <header class="h-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 flex items-center px-6 shrink-0">
+                <h1 class="text-sm font-semibold text-slate-800 dark:text-slate-100 flex-1">{{ title }}</h1>
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    @click="toggle"
+                >
+                    <i :class="isDark ? 'pi pi-sun' : 'pi pi-moon'" class="text-sm" />
+                </button>
             </header>
 
             <main class="flex-1 overflow-y-auto p-6">
@@ -58,6 +64,7 @@
 
 <script setup lang="ts">
 import type { PageProps } from '@/types';
+import { useTheme } from '@/composables/useTheme';
 import { Link, usePage } from '@inertiajs/vue3';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
@@ -71,6 +78,7 @@ defineProps<{
 const page = usePage<PageProps>();
 const user = computed(() => page.props.auth.user);
 const toast = useToast();
+const { isDark, toggle } = useTheme();
 
 const roleLabels: Record<string, string> = {
     god: 'Administrador',

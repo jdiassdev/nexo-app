@@ -2,9 +2,8 @@
     <Head title="Entrar — Nexo Escolar" />
 
     <div class="min-h-screen flex">
-        <!-- Left panel -->
+        <!-- Left panel (indigo — não muda no dark) -->
         <div class="hidden lg:flex lg:w-1/2 bg-indigo-600 flex-col justify-between p-12 relative overflow-hidden">
-            <!-- Background decoration -->
             <div class="absolute inset-0 opacity-10">
                 <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-white" />
                 <div class="absolute -bottom-32 -right-16 w-[500px] h-[500px] rounded-full bg-white" />
@@ -45,7 +44,16 @@
         </div>
 
         <!-- Right panel -->
-        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-slate-50">
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-slate-50 dark:bg-slate-950 relative">
+
+            <!-- Theme toggle -->
+            <button
+                class="absolute top-5 right-5 w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                @click="toggle"
+            >
+                <i :class="isDark ? 'pi pi-sun' : 'pi pi-moon'" class="text-sm" />
+            </button>
+
             <div class="w-full max-w-md">
                 <!-- Mobile logo -->
                 <div class="flex items-center gap-2 mb-10 lg:hidden">
@@ -54,18 +62,18 @@
                 </div>
 
                 <div class="mb-8">
-                    <h2 class="text-2xl font-bold text-slate-800">Bem-vindo de volta</h2>
-                    <p class="text-slate-500 mt-1 text-sm">Entre com seu e-mail ou matrícula para continuar.</p>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Bem-vindo de volta</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm">Entre com seu e-mail ou matrícula para continuar.</p>
                 </div>
 
-                <div v-if="status" class="mb-6 flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-lg">
-                    <i class="pi pi-check-circle text-green-600" />
+                <div v-if="status" class="mb-6 flex items-center gap-2 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 text-sm px-4 py-3 rounded-lg">
+                    <i class="pi pi-check-circle text-green-600 dark:text-green-400" />
                     {{ status }}
                 </div>
 
                 <form @submit.prevent="submit" class="space-y-5">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1.5">
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5">
                             E-mail ou Matrícula
                         </label>
                         <input
@@ -76,7 +84,7 @@
                             autofocus
                             autocomplete="username"
                             placeholder="email@escola.com ou matrícula"
-                            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                            class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                             :class="{ 'border-red-400 focus:ring-red-400': form.errors.login }"
                         />
                         <p v-if="form.errors.login" class="mt-1.5 text-xs text-red-500 flex items-center gap-1">
@@ -85,7 +93,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1.5">Senha</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5">Senha</label>
                         <div class="relative">
                             <input
                                 id="password"
@@ -94,12 +102,12 @@
                                 required
                                 autocomplete="current-password"
                                 placeholder="••••••••"
-                                class="w-full px-3.5 py-2.5 pr-10 rounded-lg border border-slate-300 bg-white text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                                class="w-full px-3.5 py-2.5 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                                 :class="{ 'border-red-400 focus:ring-red-400': form.errors.password }"
                             />
                             <button
                                 type="button"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                                 @click="showPassword = !showPassword"
                             >
                                 <i :class="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'" class="text-sm" />
@@ -115,9 +123,9 @@
                             <input
                                 v-model="form.remember"
                                 type="checkbox"
-                                class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <span class="text-sm text-slate-600">Lembrar de mim</span>
+                            <span class="text-sm text-slate-600 dark:text-slate-300">Lembrar de mim</span>
                         </label>
                     </div>
 
@@ -140,6 +148,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTheme } from '@/composables/useTheme';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -148,6 +157,7 @@ defineProps<{
     status?: string;
 }>();
 
+const { isDark, toggle } = useTheme();
 const showPassword = ref(false);
 
 const form = useForm({

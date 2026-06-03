@@ -3,7 +3,7 @@
 
         <div class="flex items-start justify-between mb-6">
             <div>
-                <h2 class="text-base font-semibold text-slate-800">Gerenciar Professores</h2>
+                <h2 class="text-base font-semibold text-slate-800 dark:text-slate-100">Gerenciar Professores</h2>
                 <p class="text-sm text-slate-400 mt-0.5">Acesso e vínculo de professores às disciplinas</p>
             </div>
             <Button label="Novo Professor" icon="pi pi-plus" @click="openCreate" />
@@ -12,7 +12,7 @@
         <div class="page-card">
 
             <!-- Filter toolbar -->
-            <div class="px-5 py-4 border-b border-slate-100">
+            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="flex items-center gap-2.5">
                     <div class="relative flex-1 max-w-xs">
                         <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm pointer-events-none" />
@@ -26,7 +26,7 @@
                     <Button label="Buscar" icon="pi pi-search" size="small" @click="applyFilters" />
                     <button
                         v-if="search"
-                        class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors ml-1"
+                        class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors ml-1"
                         @click="clearFilters"
                     >
                         <i class="pi pi-times-circle" /> Limpar
@@ -42,11 +42,11 @@
                 <Column header="Professor" field="name">
                     <template #body="{ data }">
                         <div class="flex items-center gap-3 py-0.5">
-                            <div class="w-8 h-8 rounded-full bg-violet-50 flex items-center justify-center shrink-0">
-                                <span class="text-xs font-semibold text-violet-600">{{ data.name.charAt(0).toUpperCase() }}</span>
+                            <div class="w-8 h-8 rounded-full bg-violet-50 dark:bg-violet-900/30 flex items-center justify-center shrink-0">
+                                <span class="text-xs font-semibold text-violet-600 dark:text-violet-400">{{ data.name.charAt(0).toUpperCase() }}</span>
                             </div>
                             <div>
-                                <p class="font-medium text-slate-800 leading-tight">{{ data.name }}</p>
+                                <p class="font-medium text-slate-800 dark:text-slate-100 leading-tight">{{ data.name }}</p>
                                 <p class="text-xs text-slate-400 leading-tight mt-0.5">{{ data.email }}</p>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                 <Column header="Disciplinas" style="width:130px">
                     <template #body="{ data }">
                         <span class="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium"
-                            :class="data.subjects_count > 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-400'"
+                            :class="data.subjects_count > 0 ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'"
                         >
                             <i class="pi pi-book text-[10px]" />
                             {{ data.subjects_count }} {{ data.subjects_count === 1 ? 'disciplina' : 'disciplinas' }}
@@ -72,17 +72,16 @@
                 </Column>
                 <template #empty>
                     <div class="flex flex-col items-center justify-center py-12 text-center">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mb-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-3">
                             <i class="pi pi-user text-slate-400 text-lg" />
                         </div>
-                        <p class="text-sm font-medium text-slate-600">Nenhum professor encontrado</p>
+                        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Nenhum professor encontrado</p>
                         <p class="text-xs text-slate-400 mt-1">{{ search ? 'Tente ajustar o filtro de busca.' : 'Clique em "Novo Professor" para começar.' }}</p>
                     </div>
                 </template>
             </DataTable>
         </div>
 
-        <!-- Dialog -->
         <AppDialog
             v-model="dialogVisible"
             :title="editingId ? 'Editar Professor' : 'Novo Professor'"

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label v-if="label" class="block text-sm font-medium text-slate-700 mb-1.5">
+        <label v-if="label" class="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1.5">
             {{ label }}
             <span v-if="required" class="text-red-400 ml-0.5">*</span>
         </label>

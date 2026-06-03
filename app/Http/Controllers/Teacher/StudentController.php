@@ -20,8 +20,8 @@ class StudentController extends Controller
         $classroomIds = $teacher->subjects()->distinct()->pluck('classroom_id');
 
         $query = User::where('role', 'student')
-            ->whereHas('classrooms', fn ($q) => $q->whereIn('classrooms.id', $classroomIds))
-            ->with(['classrooms' => fn ($q) => $q->whereIn('classrooms.id', $classroomIds)->select('classrooms.id', 'name', 'school_year')])
+            ->whereHas('classrooms', fn($q) => $q->whereIn('classrooms.id', $classroomIds))
+            ->with(['classrooms' => fn($q) => $q->whereIn('classrooms.id', $classroomIds)->select('classrooms.id', 'name', 'school_year')])
             ->orderBy('name');
 
         if ($search = $request->query('search')) {
@@ -32,7 +32,7 @@ class StudentController extends Controller
         }
 
         if ($classroomId = $request->query('classroom_id')) {
-            $query->whereHas('classrooms', fn ($q) => $q->where('classrooms.id', $classroomId));
+            $query->whereHas('classrooms', fn($q) => $q->where('classrooms.id', $classroomId));
         }
 
         $classrooms = Classroom::whereIn('id', $classroomIds)

@@ -1,44 +1,52 @@
 <template>
     <Head title="Nexo Escolar — Gestão escolar simples e eficiente" />
 
-    <div class="min-h-screen bg-white antialiased">
+    <div class="min-h-screen bg-white dark:bg-slate-900 antialiased">
 
         <!-- Nav -->
-        <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
             <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <span class="text-xl font-bold text-indigo-600 tracking-tight">Nexo</span>
                     <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-[0.2em]">Escolar</span>
                 </div>
-                <nav class="hidden md:flex items-center gap-8 text-sm text-slate-500">
-                    <a href="#funcionalidades" class="hover:text-slate-800 transition-colors">Funcionalidades</a>
-                    <a href="#perfis" class="hover:text-slate-800 transition-colors">Perfis</a>
-                    <a href="#como-funciona" class="hover:text-slate-800 transition-colors">Como funciona</a>
+                <nav class="hidden md:flex items-center gap-8 text-sm text-slate-500 dark:text-slate-400">
+                    <a href="#funcionalidades" class="hover:text-slate-800 dark:hover:text-slate-100 transition-colors">Funcionalidades</a>
+                    <a href="#perfis" class="hover:text-slate-800 dark:hover:text-slate-100 transition-colors">Perfis</a>
+                    <a href="#como-funciona" class="hover:text-slate-800 dark:hover:text-slate-100 transition-colors">Como funciona</a>
                 </nav>
-                <Link :href="route('login')" class="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
-                    <i class="pi pi-sign-in text-xs" /> Entrar
-                </Link>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        @click="toggle"
+                    >
+                        <i :class="isDark ? 'pi pi-sun' : 'pi pi-moon'" class="text-sm" />
+                    </button>
+                    <Link :href="route('login')" class="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors">
+                        <i class="pi pi-sign-in text-xs" /> Entrar
+                    </Link>
+                </div>
             </div>
         </header>
 
         <!-- Hero -->
         <section class="relative overflow-hidden">
             <div class="absolute inset-0 pointer-events-none">
-                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-indigo-50 rounded-full opacity-50 blur-3xl" />
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-indigo-50 dark:bg-indigo-900/20 rounded-full opacity-50 blur-3xl" />
             </div>
 
             <div class="relative max-w-4xl mx-auto px-6 pt-24 pb-16 text-center">
-                <span class="inline-flex items-center gap-2 bg-white border border-indigo-100 text-indigo-600 text-xs font-semibold px-4 py-1.5 rounded-full shadow-sm mb-8">
+                <span class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-indigo-100 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-semibold px-4 py-1.5 rounded-full shadow-sm mb-8">
                     <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
                     Plataforma de gestão escolar
                 </span>
 
-                <h1 class="text-[56px] leading-[1.1] font-bold text-slate-900 tracking-tight">
+                <h1 class="text-[56px] leading-[1.1] font-bold text-slate-900 dark:text-slate-50 tracking-tight">
                     Gestão escolar<br/>
                     <span class="text-indigo-600">simples e eficiente</span>
                 </h1>
 
-                <p class="mt-6 text-xl text-slate-500 leading-relaxed max-w-2xl mx-auto">
+                <p class="mt-6 text-xl text-slate-500 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
                     Notas, frequência, turmas e comunicação — tudo organizado para diretores, professores e alunos em um só lugar.
                 </p>
 
@@ -46,7 +54,7 @@
                     <Link :href="route('login')" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors text-sm shadow-lg shadow-indigo-200/60">
                         Acessar o sistema <i class="pi pi-arrow-right text-xs" />
                     </Link>
-                    <a href="#funcionalidades" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-slate-800 font-medium px-7 py-3.5 rounded-xl transition-colors text-sm">
+                    <a href="#funcionalidades" class="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 font-medium px-7 py-3.5 rounded-xl transition-colors text-sm">
                         Ver funcionalidades
                     </a>
                 </div>
@@ -55,11 +63,11 @@
             <!-- Stats -->
             <div class="relative max-w-3xl mx-auto px-6 pb-20">
                 <div class="grid grid-cols-4 gap-4">
-                    <div v-for="s in heroStats" :key="s.label" class="bg-white border border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition-shadow">
+                    <div v-for="s in heroStats" :key="s.label" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 text-center shadow-sm hover:shadow-md transition-shadow">
                         <div class="w-9 h-9 rounded-xl mx-auto mb-3 flex items-center justify-center" :class="s.bg">
                             <i :class="[s.icon, s.color, 'text-sm']" />
                         </div>
-                        <p class="text-2xl font-bold text-slate-800">{{ s.value }}</p>
+                        <p class="text-2xl font-bold text-slate-800 dark:text-slate-100">{{ s.value }}</p>
                         <p class="text-xs text-slate-400 mt-0.5">{{ s.label }}</p>
                     </div>
                 </div>
@@ -68,18 +76,18 @@
 
         <!-- Divider -->
         <div class="max-w-6xl mx-auto px-6">
-            <div class="border-t border-slate-100" />
+            <div class="border-t border-slate-100 dark:border-slate-800" />
         </div>
 
         <!-- Features -->
-        <section id="funcionalidades" class="py-24 bg-white">
+        <section id="funcionalidades" class="py-24 bg-white dark:bg-slate-900">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="max-w-2xl mx-auto text-center mb-16">
                     <p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-4">Funcionalidades</p>
-                    <h2 class="text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
                         Tudo que uma escola precisa
                     </h2>
-                    <p class="mt-4 text-slate-500 text-lg leading-relaxed">
+                    <p class="mt-4 text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
                         Do cadastro de turmas ao cálculo de médias, cada fluxo foi pensado para funcionar sem complicação.
                     </p>
                 </div>
@@ -88,27 +96,27 @@
                     <div
                         v-for="feat in features"
                         :key="feat.title"
-                        class="group bg-white border border-slate-200 rounded-2xl p-7 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-50 transition-all duration-200"
+                        class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-7 hover:border-indigo-200 dark:hover:border-indigo-700 hover:shadow-lg hover:shadow-indigo-50 dark:hover:shadow-indigo-900/20 transition-all duration-200"
                     >
                         <div class="w-11 h-11 rounded-xl flex items-center justify-center mb-5" :class="feat.bg">
                             <i :class="[feat.icon, feat.color, 'text-base']" />
                         </div>
-                        <h3 class="font-semibold text-slate-800 mb-2 text-[15px]">{{ feat.title }}</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed">{{ feat.description }}</p>
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-2 text-[15px]">{{ feat.title }}</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{{ feat.description }}</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Profiles -->
-        <section id="perfis" class="py-24 bg-slate-50">
+        <section id="perfis" class="py-24 bg-slate-50 dark:bg-slate-950">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="max-w-2xl mx-auto text-center mb-16">
                     <p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-4">Perfis de acesso</p>
-                    <h2 class="text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
                         Feito para cada papel na escola
                     </h2>
-                    <p class="mt-4 text-slate-500 text-lg">
+                    <p class="mt-4 text-slate-500 dark:text-slate-400 text-lg">
                         Cada usuário acessa exatamente o que precisa.
                     </p>
                 </div>
@@ -138,24 +146,23 @@
         </section>
 
         <!-- How it works -->
-        <section id="como-funciona" class="py-24 bg-white">
+        <section id="como-funciona" class="py-24 bg-white dark:bg-slate-900">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="max-w-2xl mx-auto text-center mb-16">
                     <p class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-4">Como funciona</p>
-                    <h2 class="text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-slate-50 tracking-tight leading-tight">
                         Simples do início ao fim
                     </h2>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-10">
                     <div v-for="(step, i) in steps" :key="step.title" class="relative text-center">
-                        <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white text-xl font-bold flex items-center justify-center mx-auto mb-6 shadow-lg shadow-indigo-200">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white text-xl font-bold flex items-center justify-center mx-auto mb-6 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/50">
                             {{ i + 1 }}
                         </div>
-                        <h3 class="font-semibold text-slate-800 mb-3 text-[15px]">{{ step.title }}</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed">{{ step.description }}</p>
-                        <!-- Connector -->
-                        <div v-if="i < 2" class="hidden md:block absolute top-7 left-[calc(50%+3rem)] w-[calc(100%-6rem)] h-px bg-slate-200" />
+                        <h3 class="font-semibold text-slate-800 dark:text-slate-100 mb-3 text-[15px]">{{ step.title }}</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{{ step.description }}</p>
+                        <div v-if="i < 2" class="hidden md:block absolute top-7 left-[calc(50%+3rem)] w-[calc(100%-6rem)] h-px bg-slate-200 dark:bg-slate-700" />
                     </div>
                 </div>
             </div>
@@ -181,7 +188,7 @@
         </section>
 
         <!-- Footer -->
-        <footer class="border-t border-slate-100 py-8">
+        <footer class="border-t border-slate-100 dark:border-slate-800 py-8">
             <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
                     <span class="font-bold text-indigo-600">Nexo</span>
@@ -194,46 +201,25 @@
 </template>
 
 <script setup lang="ts">
+import { useTheme } from '@/composables/useTheme';
 import { Head, Link } from '@inertiajs/vue3';
 
+const { isDark, toggle } = useTheme();
+
 const heroStats = [
-    { label: 'Turmas ilimitadas', value: '∞', icon: 'pi pi-objects-column', bg: 'bg-indigo-50', color: 'text-indigo-600' },
-    { label: 'Bimestres', value: '4', icon: 'pi pi-calendar', bg: 'bg-blue-50', color: 'text-blue-600' },
-    { label: 'Perfis de acesso', value: '3', icon: 'pi pi-users', bg: 'bg-violet-50', color: 'text-violet-600' },
-    { label: 'Média automática', value: '✓', icon: 'pi pi-calculator', bg: 'bg-green-50', color: 'text-green-600' },
+    { label: 'Turmas ilimitadas', value: '∞', icon: 'pi pi-objects-column', bg: 'bg-indigo-50 dark:bg-indigo-900/30', color: 'text-indigo-600' },
+    { label: 'Bimestres', value: '4', icon: 'pi pi-calendar', bg: 'bg-blue-50 dark:bg-blue-900/30', color: 'text-blue-600' },
+    { label: 'Perfis de acesso', value: '3', icon: 'pi pi-users', bg: 'bg-violet-50 dark:bg-violet-900/30', color: 'text-violet-600' },
+    { label: 'Média automática', value: '✓', icon: 'pi pi-calculator', bg: 'bg-green-50 dark:bg-green-900/30', color: 'text-green-600' },
 ];
 
 const features = [
-    {
-        title: 'Turmas por ano letivo',
-        description: 'Crie turmas com disciplinas, professores e horários semanais. Controle total por ano letivo.',
-        icon: 'pi pi-objects-column', bg: 'bg-indigo-50', color: 'text-indigo-600',
-    },
-    {
-        title: 'Notas e médias automáticas',
-        description: 'Lance atividades e provas por bimestre. O sistema calcula médias semestrais e nota final.',
-        icon: 'pi pi-star', bg: 'bg-amber-50', color: 'text-amber-600',
-    },
-    {
-        title: 'Controle de frequência',
-        description: 'Registre presença por data e disciplina. Alerta automático ao atingir o limite de faltas.',
-        icon: 'pi pi-calendar-clock', bg: 'bg-green-50', color: 'text-green-600',
-    },
-    {
-        title: 'Recuperações e prova final',
-        description: 'Suporte completo a recuperações semestrais e prova final com recálculo automático.',
-        icon: 'pi pi-refresh', bg: 'bg-blue-50', color: 'text-blue-600',
-    },
-    {
-        title: 'Horários por disciplina',
-        description: 'Configure dias e horários de início e fim para cada disciplina de cada turma.',
-        icon: 'pi pi-clock', bg: 'bg-violet-50', color: 'text-violet-600',
-    },
-    {
-        title: 'Acesso por matrícula ou e-mail',
-        description: 'Alunos entram com matrícula. Professores e diretores com e-mail. Login único e seguro.',
-        icon: 'pi pi-lock', bg: 'bg-rose-50', color: 'text-rose-600',
-    },
+    { title: 'Turmas por ano letivo', description: 'Crie turmas com disciplinas, professores e horários semanais. Controle total por ano letivo.', icon: 'pi pi-objects-column', bg: 'bg-indigo-50 dark:bg-indigo-900/30', color: 'text-indigo-600' },
+    { title: 'Notas e médias automáticas', description: 'Lance atividades e provas por bimestre. O sistema calcula médias semestrais e nota final.', icon: 'pi pi-star', bg: 'bg-amber-50 dark:bg-amber-900/30', color: 'text-amber-600' },
+    { title: 'Controle de frequência', description: 'Registre presença por data e disciplina. Alerta automático ao atingir o limite de faltas.', icon: 'pi pi-calendar-clock', bg: 'bg-green-50 dark:bg-green-900/30', color: 'text-green-600' },
+    { title: 'Recuperações e prova final', description: 'Suporte completo a recuperações semestrais e prova final com recálculo automático.', icon: 'pi pi-refresh', bg: 'bg-blue-50 dark:bg-blue-900/30', color: 'text-blue-600' },
+    { title: 'Horários por disciplina', description: 'Configure dias e horários de início e fim para cada disciplina de cada turma.', icon: 'pi pi-clock', bg: 'bg-violet-50 dark:bg-violet-900/30', color: 'text-violet-600' },
+    { title: 'Acesso por matrícula ou e-mail', description: 'Alunos entram com matrícula. Professores e diretores com e-mail. Login único e seguro.', icon: 'pi pi-lock', bg: 'bg-rose-50 dark:bg-rose-900/30', color: 'text-rose-600' },
 ];
 
 const roles = [
@@ -241,52 +227,43 @@ const roles = [
         title: 'Diretor',
         description: 'Visão completa e controle total da escola.',
         icon: 'pi pi-shield',
-        cardClass: 'border-indigo-200 bg-indigo-50',
+        cardClass: 'border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/30',
         circle: 'bg-indigo-600',
-        iconBg: 'bg-indigo-100',
-        iconColor: 'text-indigo-700',
-        title2: 'text-indigo-900',
-        desc: 'text-indigo-700',
+        iconBg: 'bg-indigo-100 dark:bg-indigo-800',
+        iconColor: 'text-indigo-700 dark:text-indigo-300',
+        title2: 'text-indigo-900 dark:text-indigo-100',
+        desc: 'text-indigo-700 dark:text-indigo-300',
         features: ['Gerenciar professores e alunos', 'Criar turmas e disciplinas', 'Definir horários', 'Dashboard com indicadores'],
     },
     {
         title: 'Professor',
         description: 'Gestão das suas disciplinas com foco no pedagógico.',
         icon: 'pi pi-user',
-        cardClass: 'border-slate-200 bg-white',
+        cardClass: 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800',
         circle: 'bg-slate-600',
-        iconBg: 'bg-slate-100',
-        iconColor: 'text-slate-700',
-        title2: 'text-slate-900',
-        desc: 'text-slate-600',
+        iconBg: 'bg-slate-100 dark:bg-slate-700',
+        iconColor: 'text-slate-700 dark:text-slate-200',
+        title2: 'text-slate-900 dark:text-slate-50',
+        desc: 'text-slate-600 dark:text-slate-300',
         features: ['Criar atividades e provas', 'Lançar notas por bimestre', 'Registrar presença', 'Acompanhar a turma'],
     },
     {
         title: 'Aluno',
         description: 'Acompanhamento do próprio desempenho acadêmico.',
         icon: 'pi pi-graduation-cap',
-        cardClass: 'border-slate-200 bg-white',
+        cardClass: 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800',
         circle: 'bg-slate-600',
-        iconBg: 'bg-slate-100',
-        iconColor: 'text-slate-700',
-        title2: 'text-slate-900',
-        desc: 'text-slate-600',
+        iconBg: 'bg-slate-100 dark:bg-slate-700',
+        iconColor: 'text-slate-700 dark:text-slate-200',
+        title2: 'text-slate-900 dark:text-slate-50',
+        desc: 'text-slate-600 dark:text-slate-300',
         features: ['Ver notas por bimestre', 'Histórico de presenças', 'Situação: aprovado/reprovado', 'Horários das disciplinas'],
     },
 ];
 
 const steps = [
-    {
-        title: 'Diretor configura a escola',
-        description: 'Cadastra professores, cria turmas, define disciplinas com horários e matricula alunos.',
-    },
-    {
-        title: 'Professor gerencia suas aulas',
-        description: 'Lança atividades, registra notas e controla a frequência dos seus alunos por data.',
-    },
-    {
-        title: 'Aluno acompanha o progresso',
-        description: 'Acessa notas, médias, histórico de faltas e situação de aprovação em tempo real.',
-    },
+    { title: 'Diretor configura a escola', description: 'Cadastra professores, cria turmas, define disciplinas com horários e matricula alunos.' },
+    { title: 'Professor gerencia suas aulas', description: 'Lança atividades, registra notas e controla a frequência dos seus alunos por data.' },
+    { title: 'Aluno acompanha o progresso', description: 'Acessa notas, médias, histórico de faltas e situação de aprovação em tempo real.' },
 ];
 </script>
