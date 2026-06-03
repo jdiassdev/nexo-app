@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\RecoveryExam;
 use App\Models\Subject;
 use App\Services\GradeCalculatorService;
 use Illuminate\Http\Request;
@@ -27,7 +28,15 @@ class GradeController extends Controller
             ->with(['grades' => fn ($q) => $q->where('student_id', $student->id)])
             ->orderBy('quarter')
             ->orderBy('due_date')
-            ->get()
+            ->get();
+
+        $recoveries = RecoveryExam::where('subject_id', $subject->id)
+            ->where('student_id', $student->id)
+            ->get();
+
+        $summary = $calculator->summary($student, $subject, $activities, $recoveries);
+
+        $activities = $activities
             ->groupBy('quarter')
             ->map(fn ($group) => $group->map(fn ($activity) => [
                 'id' => $activity->id,
@@ -35,8 +44,6 @@ class GradeController extends Controller
                 'max_grade' => $activity->max_grade,
                 'score' => $activity->grades->first()?->score,
             ]));
-
-        $summary = $calculator->summary($student, $subject);
 
         return Inertia::render('Student/Subjects/Grades', [
             'subject' => $subject->only('id', 'name'),

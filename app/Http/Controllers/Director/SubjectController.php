@@ -84,20 +84,26 @@ class SubjectController extends Controller
     {
         $subject->schedules()->delete();
 
-        foreach ($schedules as $schedule) {
-            SubjectSchedule::create([
-                'subject_id' => $subject->id,
-                'day_of_week' => $schedule['day_of_week'],
-                'time_start' => $schedule['time_start'],
-                'time_end' => $schedule['time_end'],
-            ]);
+        if (empty($schedules)) {
+            return;
         }
+
+        $now = now()->toDateTimeString();
+
+        SubjectSchedule::insert(array_map(fn ($s) => [
+            'subject_id' => $subject->id,
+            'day_of_week' => $s['day_of_week'],
+            'time_start' => $s['time_start'],
+            'time_end' => $s['time_end'],
+            'created_at' => $now,
+            'updated_at' => $now,
+        ], $schedules));
     }
 
     private function teachers(Request $request): \Illuminate\Database\Eloquent\Collection
     {
         return User::where('school_id', $request->user()->school_id)
-            ->where('role', 'teacher')
+            ->teachers()
             ->orderBy('name')
             ->get(['id', 'name']);
     }

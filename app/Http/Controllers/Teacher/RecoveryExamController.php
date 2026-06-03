@@ -22,13 +22,20 @@ class RecoveryExamController extends Controller
         $subject->load('classroom.students:id,name,enrollment');
         $students = $subject->classroom->students;
 
-        $existing = RecoveryExam::where('subject_id', $subject->id)
+        $allActivities = $subject->activities()->with('grades')->get();
+
+        $recoveryByStudent = RecoveryExam::where('subject_id', $subject->id)
             ->get()
             ->groupBy('student_id');
 
-        $rows = $students->map(function ($student) use ($existing, $calculator, $subject) {
-            $studentExams = $existing[$student->id] ?? collect();
-            $summary = $calculator->summary($student, $subject);
+        $rows = $students->map(function ($student) use ($allActivities, $recoveryByStudent, $calculator, $subject) {
+            $studentActivities = $allActivities->map(fn ($activity) => tap(
+                clone $activity,
+                fn ($a) => $a->setRelation('grades', $activity->grades->where('student_id', $student->id)->values())
+            ));
+
+            $studentExams = $recoveryByStudent[$student->id] ?? collect();
+            $summary = $calculator->summary($student, $subject, $studentActivities, $studentExams);
 
             return [
                 'student_id' => $student->id,
