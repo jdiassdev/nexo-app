@@ -10,7 +10,7 @@ class StoreRecoveryExamRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->route('subject')->teacher_id === $this->user()->id;
+        return $this->user()->can('manage', $this->route('subject'));
     }
 
     public function rules(): array

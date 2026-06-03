@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 class GradeCalculatorService
 {
-    private float $passingGrade;
+    public readonly float $passingGrade;
 
     public function __construct()
     {

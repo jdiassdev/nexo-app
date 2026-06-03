@@ -11,10 +11,7 @@ class UpdateTeacherRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $teacher = $this->route('teacher');
-
-        return $teacher->school_id === $this->user()->school_id
-            && $teacher->role === 'teacher';
+        return $this->user()->can('updateTeacher', $this->route('teacher'));
     }
 
     public function rules(): array

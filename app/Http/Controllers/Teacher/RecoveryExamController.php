@@ -10,15 +10,14 @@ use App\Models\RecoveryExam;
 use App\Models\Subject;
 use App\Services\GradeCalculatorService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class RecoveryExamController extends Controller
 {
-    public function index(Request $request, Subject $subject, GradeCalculatorService $calculator): Response
+    public function index(Subject $subject, GradeCalculatorService $calculator): Response
     {
-        abort_unless($subject->teacher_id === $request->user()->id, 403);
+        $this->authorize('manage', $subject);
 
         $subject->load('classroom.students:id,name,enrollment');
         $students = $subject->classroom->students;
@@ -50,7 +49,7 @@ class RecoveryExamController extends Controller
                 'classroom' => $subject->classroom->only('id', 'name', 'school_year'),
             ],
             'rows' => $rows,
-            'passing_grade' => (float) config('app.passing_grade', 5.0),
+            'passing_grade' => $calculator->passingGrade,
         ]);
     }
 
