@@ -18,9 +18,9 @@ class DashboardController extends Controller
         return Inertia::render('Director/Dashboard', [
             'stats' => [
                 'classrooms' => $school->classrooms()->count(),
-                'teachers' => $school->users()->where('role', 'teacher')->count(),
-                'students' => $school->users()->where('role', 'student')->count(),
-                'subjects' => $school->classrooms()->withCount('subjects')->get()->sum('subjects_count'),
+                'teachers' => $school->users()->teachers()->count(),
+                'students' => $school->users()->students()->count(),
+                'subjects' => $school->subjects()->count(),
             ],
         ]);
     }

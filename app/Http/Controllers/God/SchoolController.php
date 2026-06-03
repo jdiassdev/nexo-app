@@ -16,12 +16,7 @@ class SchoolController extends Controller
 {
     public function index(): Response
     {
-        $schools = School::withCount([
-            'users as directors_count' => fn ($q) => $q->where('role', 'director'),
-            'users as teachers_count' => fn ($q) => $q->where('role', 'teacher'),
-            'users as students_count' => fn ($q) => $q->where('role', 'student'),
-            'classrooms',
-        ])->orderBy('name')->get();
+        $schools = School::withRoleCounts()->orderBy('name')->get();
 
         return Inertia::render('God/Schools/Index', ['schools' => $schools]);
     }

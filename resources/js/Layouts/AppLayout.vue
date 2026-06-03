@@ -95,6 +95,6 @@ watch(
             toast.add({ severity: 'error', summary: 'Erro', detail: flash.error, life: 5000 });
         }
     },
-    { deep: true },
+    { deep: true, immediate: true },
 );
 </script>

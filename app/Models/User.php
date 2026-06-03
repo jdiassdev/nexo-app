@@ -8,6 +8,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -43,6 +44,21 @@ class User extends Authenticatable
     public function subjects(): HasMany
     {
         return $this->hasMany(Subject::class, 'teacher_id');
+    }
+
+    public function scopeDirectors(Builder $query): void
+    {
+        $query->where('role', 'director');
+    }
+
+    public function scopeTeachers(Builder $query): void
+    {
+        $query->where('role', 'teacher');
+    }
+
+    public function scopeStudents(Builder $query): void
+    {
+        $query->where('role', 'student');
     }
 
     public function isGod(): bool

@@ -21,10 +21,11 @@ use App\Http\Controllers\Student\DashboardController as StudentDashboardControll
 use App\Http\Controllers\Student\GradeController as StudentGradeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    if (auth()->check()) {
-        $role = auth()->user()->role;
+    if (Auth::check()) {
+        $role = Auth::user()->role;
 
         return redirect()->route(match ($role) {
             'god' => 'god.dashboard',
@@ -81,4 +82,4 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('/subjects/{subject}/attendance', StudentAttendanceController::class)->name('subjects.attendance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

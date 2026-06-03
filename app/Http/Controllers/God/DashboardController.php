@@ -18,17 +18,12 @@ class DashboardController extends Controller
         return Inertia::render('God/Dashboard', [
             'stats' => [
                 'schools' => School::count(),
-                'directors' => User::where('role', 'director')->count(),
-                'teachers' => User::where('role', 'teacher')->count(),
-                'students' => User::where('role', 'student')->count(),
+                'directors' => User::directors()->count(),
+                'teachers' => User::teachers()->count(),
+                'students' => User::students()->count(),
                 'classrooms' => Classroom::count(),
             ],
-            'schools' => School::withCount([
-                'users as directors_count' => fn ($q) => $q->where('role', 'director'),
-                'users as teachers_count' => fn ($q) => $q->where('role', 'teacher'),
-                'users as students_count' => fn ($q) => $q->where('role', 'student'),
-                'classrooms',
-            ])->orderBy('name')->get(['id', 'name', 'city']),
+            'schools' => School::withRoleCounts()->orderBy('name')->get(['id', 'name', 'city']),
         ]);
     }
 }
