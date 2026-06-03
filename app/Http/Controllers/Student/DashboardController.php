@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Attendance;
 use App\Models\RecoveryExam;
+use App\Models\Subject;
 use App\Models\SubjectSchedule;
 use App\Services\GradeCalculatorService;
 use Illuminate\Http\Request;
@@ -20,13 +21,13 @@ class DashboardController extends Controller
     {
         $student = $request->user();
 
-        $subjects = $student->classrooms()
-            ->with(['subjects.teacher:id,name', 'subjects.schedules'])
-            ->get()
-            ->pluck('subjects')
-            ->flatten();
+        $subjectIds = $student->classrooms()
+            ->join('classroom_subject', 'classrooms.id', 'classroom_subject.classroom_id')
+            ->pluck('classroom_subject.subject_id');
 
-        $subjectIds = $subjects->pluck('id');
+        $subjects = Subject::whereIn('id', $subjectIds)
+            ->with(['teacher:id,name', 'schedules'])
+            ->get();
 
         $activitiesBySubject = Activity::whereIn('subject_id', $subjectIds)
             ->with(['grades' => fn ($q) => $q->where('student_id', $student->id)])
